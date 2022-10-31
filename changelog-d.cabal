@@ -12,7 +12,7 @@ description:
 license:       GPL-3.0-or-later
 license-file:  LICENSE
 author:        Oleg Grenrus <oleg.grenrus@iki.fi>
-maintainer:    Oleg Grenrus <oleg.grenrus@iki.fi>
+maintainer:    Francesco Gazzetta <fgaz@fgaz.me>
 tested-with:   GHC ==8.4.4 || ==8.6.5 || ==8.8.3 || ==8.10.1 || ==9.2.2
 
 source-repository head
