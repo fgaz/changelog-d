@@ -43,7 +43,7 @@ import qualified Distribution.FieldGrammar       as C
 import qualified Distribution.Fields             as C
 import qualified Distribution.Parsec             as C
 import qualified Distribution.Pretty             as C
-import qualified Distribution.Simple.Utils       as C
+import qualified Distribution.Utils.Generic      as C
 import qualified Distribution.Types.PackageName  as C
 import qualified Text.PrettyPrint                as PP
 import qualified Text.Regex.Applicative          as RE
