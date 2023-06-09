@@ -17,7 +17,7 @@
 --
 module ChangelogD (makeChangelog, Opts (..)) where
 
-import Control.Applicative     (some)
+import Control.Applicative     (some, (<|>))
 import Control.Exception       (Exception (..))
 import Control.Monad           (unless, when)
 import Data.Char               (isDigit, isSpace)
@@ -76,8 +76,15 @@ makeChangelog opts@Opts {..} = do
     for_ optPrList $ \prListFP -> do
         ls <- lines <$> readFile prListFP
 
-        let re :: RE.RE Char Int
-            re = reAny *> "Merge pull request #" *> reIntegral <* " " <* reAny
+        let re, reMerge, reSquash :: RE.RE Char Int
+            -- The commit subject can be prefixed
+            -- * by four spaces (default)
+            -- * by the hash (--pretty=oneline)
+            -- * by nothing (--pretty=format:%s)
+            -- So we just use reAny
+            re = reAny *> (reMerge <|> reSquash)
+            reMerge = "Merge pull request #" *> reIntegral <* " " <* reAny
+            reSquash = reAny *> "(#" *> reIntegral <* ")"
 
         let expected :: Set IssueNumber
             expected = Set.fromList $ map IssueNumber $ mapMaybe (RE.match re) ls
